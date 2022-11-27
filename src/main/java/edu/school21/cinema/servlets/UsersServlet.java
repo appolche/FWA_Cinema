@@ -11,10 +11,11 @@ import java.sql.*;
 
 @WebServlet(value = "/users", name = "UsersServlet")
 public class UsersServlet extends HttpServlet {
-//doPost
+
+    //doPost
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //нужен чтоб написать что-то на странице в аутпуте
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         PrintWriter printWriter = response.getWriter();
 
         try {
