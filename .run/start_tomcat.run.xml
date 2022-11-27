@@ -81,6 +81,7 @@
     </ConfigurationWrapper>
     <method v="2">
       <option name="Make" enabled="true" />
+      <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean install" />
       <option name="BuildArtifacts" enabled="true">
         <artifact name="Cinema:war exploded" />
       </option>

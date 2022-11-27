@@ -1,6 +1,5 @@
 package edu.school21.cinema.servlets;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,13 +23,12 @@ public class UsersServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
         String url = "jdbc:postgresql://localhost:5432/postgres";
-        Connection connection = null;
         try {
-            connection = DriverManager.getConnection(url, "postgres", "1");
+            Connection connection = DriverManager.getConnection(url, "postgres", "1");
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT first_name from users");
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 printWriter.println(resultSet.getString("first_name"));
             }
             statement.close();
