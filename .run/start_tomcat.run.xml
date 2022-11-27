@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="start_tomcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.0.27" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="temurin-1.8">
+  <configuration default="false" name="start_tomcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.69" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="temurin-1.8">
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
-      <artifact name="Cinema:war">
+      <artifact name="Cinema:war exploded">
         <settings>
-          <option name="CONTEXT_PATH" value="/" />
+          <option name="CONTEXT_PATH" value="" />
         </settings>
       </artifact>
     </deployment>
@@ -82,7 +82,7 @@
     <method v="2">
       <option name="Make" enabled="true" />
       <option name="BuildArtifacts" enabled="true">
-        <artifact name="Cinema:war" />
+        <artifact name="Cinema:war exploded" />
       </option>
     </method>
   </configuration>

@@ -9,17 +9,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet("/users")
+@WebServlet(value = "/users", name = "UsersServlet")
 public class UsersServlet extends HttpServlet {
-//    private UsersService usersService;
-//    @Override
-//    public void init(ServletConfig config) throws ServletException {
-//        ServletContext context = config.getServletContext();
-//        ApplicationContext springContext = (ApplicationContext) context.getAttribute("springContext");
-//        this.usersService = springContext.getBean(UsersService.class);
-//    }
-    //doPost
-
+//doPost
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //нужен чтоб написать что-то на странице в аутпуте
         PrintWriter printWriter = response.getWriter();
@@ -45,5 +38,4 @@ public class UsersServlet extends HttpServlet {
         }
 
     }
-
 }
