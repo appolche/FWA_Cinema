@@ -7,14 +7,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.*;
 
 @WebServlet(value = "/users", name = "UsersServlet")
 public class UsersServlet extends HttpServlet {
+//doPost
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter w = resp.getWriter();
-        w.println("sobaka");
-        w.close();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //нужен чтоб написать что-то на странице в аутпуте
+        PrintWriter printWriter = response.getWriter();
+
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, "postgres", "1");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT first_name from users");
+
+            while(resultSet.next()) {
+                printWriter.println(resultSet.getString("first_name"));
+            }
+            statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
