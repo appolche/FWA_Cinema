@@ -1,6 +1,7 @@
 <html>
 <body>
 <h2>Hello World!</h2>
-<a href="users">users</a>
+<a href="sign in">signIn</a>
+<a href="sign_up">signUp</a>
 </body>
 </html>
