@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import javax.sql.DataSource;
+
 @Configuration
 @PropertySource("classpath:../application.properties")
 public class DataSourceConfig {
@@ -19,7 +21,7 @@ public class DataSourceConfig {
     private String password;
 
     @Bean
-    public HikariDataSource dataSourceBean() {
+    public DataSource dataSourceBean() {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
