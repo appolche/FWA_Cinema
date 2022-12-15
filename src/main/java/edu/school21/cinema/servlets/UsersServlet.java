@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import edu.school21.cinema.config.DataSourceConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@WebServlet(value = "/sign_in", name = "UsersServlet")
+@WebServlet(value = "/users", name = "UsersServlet")
 public class UsersServlet extends HttpServlet {
 
     //doPost
@@ -36,5 +37,10 @@ public class UsersServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getWriter().println(req.getParameter("email"));
     }
 }
