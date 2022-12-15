@@ -3,14 +3,15 @@ package edu.school21.cinema.servlets;
 import edu.school21.cinema.models.User;
 import edu.school21.cinema.repositories.UsersRepositoryJdbcTemplate;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(value = "/sign_up", name = "SignUpServlet")
-public class SignUpServlet {
+public class SignUpServlet extends HttpServlet {
     private UsersRepositoryJdbcTemplate usersRepositoryJdbcTemplate;
-
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
