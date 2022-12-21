@@ -21,10 +21,6 @@ public class SignUpServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         ServletContext context = config.getServletContext();
         ApplicationContext springContext = (ApplicationContext) context.getAttribute("springContext");
-        if (springContext == null) {
-            context.setAttribute("springContext", context);
-        }
-        springContext = (ApplicationContext) context.getAttribute("springContext");
         this.usersService = springContext.getBean(UsersService.class);
     }
 
