@@ -1,6 +1,10 @@
 package edu.school21.cinema.config;
 
 import com.zaxxer.hikari.HikariDataSource;
+import edu.school21.cinema.repositories.UsersRepositoryJdbcTemplate;
+import edu.school21.cinema.repositories.UsersRepositoryJdbcTemplateImpl;
+import edu.school21.cinema.services.UsersService;
+import edu.school21.cinema.services.impl.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +26,7 @@ public class DataSourceConfig {
     private String password;
 
     @Bean
-    public DataSource dataSourceBean() {
+    DataSource dataSourceBean() {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -35,7 +39,17 @@ public class DataSourceConfig {
         return source;
     }
     @Bean
-    public JdbcTemplate jdbcTemplate() {
+    JdbcTemplate jdbcTemplateBean() {
         return new JdbcTemplate((dataSourceBean()));
+    }
+
+    @Bean
+    UsersRepositoryJdbcTemplate usersRepositoryJdbcTemplateBean() {
+        return new UsersRepositoryJdbcTemplateImpl(jdbcTemplateBean());
+    }
+
+    @Bean
+    public UsersService usersServiceBean() {
+        return new UsersServiceImpl(usersRepositoryJdbcTemplateBean());
     }
 }

@@ -9,13 +9,17 @@ import org.springframework.stereotype.Repository;
 public class UsersRepositoryJdbcTemplateImpl implements UsersRepositoryJdbcTemplate {
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public UsersRepositoryJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public void save(User user) {
-        jdbcTemplate.update("insert into users values (?, ?, ?, ?)", user.getEmail(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(), user.getPassword());
+        jdbcTemplate.update("insert into users(email, first_name, last_name, phone_number, password) values (?, ?, ?, ?, ?)",
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getPhoneNumber(),
+                user.getPassword());
     }
 }

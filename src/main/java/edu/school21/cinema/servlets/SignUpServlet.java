@@ -1,18 +1,35 @@
 package edu.school21.cinema.servlets;
 
 import edu.school21.cinema.models.User;
-import edu.school21.cinema.repositories.UsersRepositoryJdbcTemplate;
+import edu.school21.cinema.services.UsersService;
+import org.springframework.context.ApplicationContext;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @WebServlet(value = "/sign_up", name = "SignUpServlet")
 public class SignUpServlet extends HttpServlet {
-    private UsersRepositoryJdbcTemplate usersRepositoryJdbcTemplate;
+
+    private UsersService usersService;
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void init(ServletConfig config) throws ServletException {
+        ServletContext context = config.getServletContext();
+        ApplicationContext springContext = (ApplicationContext) context.getAttribute("springContext");
+        if (springContext == null) {
+            context.setAttribute("springContext", context);
+        }
+        springContext = (ApplicationContext) context.getAttribute("springContext");
+        this.usersService = springContext.getBean(UsersService.class);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html");
 
         User user = new User();
@@ -21,9 +38,7 @@ public class SignUpServlet extends HttpServlet {
         user.setLastName(request.getParameter("last_name"));
         user.setPhoneNumber(request.getParameter("phone_number"));
         user.setPassword(request.getParameter("password"));
-        usersRepositoryJdbcTemplate.save(user);
+        usersService.save(user);
         //тут должен быть сервис, который будет обрабатывать полученные данные, заносить в базу, проверять на empty
     }
 }
-
-
