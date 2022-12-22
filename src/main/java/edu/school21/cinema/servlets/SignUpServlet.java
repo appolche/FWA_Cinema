@@ -36,7 +36,7 @@ public class SignUpServlet extends HttpServlet {
         user.setPhoneNumber(request.getParameter("phone_number"));
         String hashedPw = BCrypt.hashpw(request.getParameter("password"), BCrypt.gensalt());
         user.setPassword(hashedPw);
+
         usersService.save(user);
-        //тут должен быть сервис, который будет обрабатывать полученные данные, заносить в базу, проверять на empty
     }
 }
