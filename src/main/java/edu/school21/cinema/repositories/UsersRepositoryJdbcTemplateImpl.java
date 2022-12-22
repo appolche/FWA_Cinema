@@ -29,4 +29,5 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepositoryJdbcTempl
         return jdbcTemplate.query("select * from users where email = ?", new Object[]{email}, new SignInRequestMapper())
                         .stream().findAny().orElse(null);
     }
+
 }

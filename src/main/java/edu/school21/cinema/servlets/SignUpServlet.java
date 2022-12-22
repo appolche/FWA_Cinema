@@ -3,6 +3,7 @@ package edu.school21.cinema.servlets;
 import edu.school21.cinema.models.User;
 import edu.school21.cinema.services.UsersService;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -33,7 +34,8 @@ public class SignUpServlet extends HttpServlet {
         user.setFirstName(request.getParameter("first_name"));
         user.setLastName(request.getParameter("last_name"));
         user.setPhoneNumber(request.getParameter("phone_number"));
-        user.setPassword(request.getParameter("password"));
+        String hashedPw = BCrypt.hashpw(request.getParameter("password"), BCrypt.gensalt());
+        user.setPassword(hashedPw);
 
         usersService.save(user);
     }
