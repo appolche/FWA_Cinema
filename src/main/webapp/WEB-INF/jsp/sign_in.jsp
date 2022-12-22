@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in form</title>
+</head>
+<body>
+<h1>Sign up form</h1>
+<form action="/sign_in" method="post">
+    <table style="with: 50%">
+        <tr>
+            <td>Email</td>
+            <td><input type="email" name="e-mail" /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="text" name="password" /></td>
+        </tr></table>
+    <input type="submit" value="Submit" /></form>
+</body>
+</html>

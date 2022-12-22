@@ -18,6 +18,8 @@ public class MainPageServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, resp);
         } else if (path.equals("/users/sign_up")) {
             req.getRequestDispatcher("/WEB-INF/jsp/sign_up.jsp").forward(req, resp);
+        } else if (path.equals("/users/sign_in")) {
+            req.getRequestDispatcher("/WEB-INF/jsp/sign_in.jsp").forward(req, resp);
         }
     }
 }

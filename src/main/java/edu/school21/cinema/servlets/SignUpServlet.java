@@ -34,7 +34,7 @@ public class SignUpServlet extends HttpServlet {
         user.setLastName(request.getParameter("last_name"));
         user.setPhoneNumber(request.getParameter("phone_number"));
         user.setPassword(request.getParameter("password"));
+
         usersService.save(user);
-        //тут должен быть сервис, который будет обрабатывать полученные данные, заносить в базу, проверять на empty
     }
 }
