@@ -37,6 +37,7 @@ public class SignInServlet extends HttpServlet {
         User user = usersService.findByEmail(request.getParameter("e-mail"), request.getParameter("password"));
         if (user == null) {
             response.sendRedirect("http://localhost:8080/");
+            return;
         }
         HttpSession session = request.getSession();
         session.setAttribute("User", user);
