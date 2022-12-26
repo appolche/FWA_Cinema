@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = {"/", "/users/sign_up"}, name = "MainPageServlet")
+@WebServlet(value = "/", name = "MainPageServlet")
 public class MainPageServlet extends HttpServlet {
 
     @Override
@@ -16,9 +16,9 @@ public class MainPageServlet extends HttpServlet {
         String path = req.getServletPath();
         if (path.equals("/")) {
             req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, resp);
-        } else if (path.equals("/users/sign_up")) {
+        } else if (path.equals("/signUp")) {
             req.getRequestDispatcher("/WEB-INF/jsp/sign_up.jsp").forward(req, resp);
-        } else if (path.equals("/users/sign_in")) {
+        } else if (path.equals("/signIn")) {
             req.getRequestDispatcher("/WEB-INF/jsp/sign_in.jsp").forward(req, resp);
         }
     }
