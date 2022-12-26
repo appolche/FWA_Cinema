@@ -7,12 +7,14 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-@WebServlet(value = "/sign_up", name = "SignUpServlet")
+@WebServlet(value = "/signUp", name = "SignUpServlet")
 public class SignUpServlet extends HttpServlet {
 
     private UsersService usersService;
@@ -22,6 +24,11 @@ public class SignUpServlet extends HttpServlet {
         ServletContext context = config.getServletContext();
         ApplicationContext springContext = (ApplicationContext) context.getAttribute("springContext");
         this.usersService = springContext.getBean(UsersService.class);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/WEB-INF/html/sign_up.html").forward(req, resp);
     }
 
     @Override
