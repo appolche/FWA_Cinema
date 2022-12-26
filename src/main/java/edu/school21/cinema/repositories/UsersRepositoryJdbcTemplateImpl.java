@@ -2,7 +2,6 @@ package edu.school21.cinema.repositories;
 
 import edu.school21.cinema.models.SignInRequestEntity;
 import edu.school21.cinema.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -25,8 +24,8 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepositoryJdbcTempl
     }
 
     @Override
-    public SignInRequestEntity findByEmail(String email) {
-        return jdbcTemplate.query("select * from users where email = ?", new Object[]{email}, new SignInRequestMapper())
+    public User findByEmail(String email) {
+        return jdbcTemplate.query("select * from users where email = ?", new UserMapper(), email)
                         .stream().findAny().orElse(null);
     }
 
