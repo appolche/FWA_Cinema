@@ -4,6 +4,7 @@ import edu.school21.cinema.models.SignInRequestEntity;
 import edu.school21.cinema.models.User;
 import edu.school21.cinema.repositories.UsersRepositoryJdbcTemplate;
 import edu.school21.cinema.services.UsersService;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,9 +20,12 @@ public class UsersServiceImpl implements UsersService {
     public void save(User user) {
         usersRepository.save(user);
     }
-
     @Override
-    public SignInRequestEntity findByEmail(String email) {
-        return usersRepository.findByEmail(email);
+    public User findByEmail(String email, String password) {
+        User user = usersRepository.findByEmail(email);
+        if (user == null || !(BCrypt.checkpw(password, user.getPassword()))) {
+            return null;
+        }
+        return user;
     }
 }

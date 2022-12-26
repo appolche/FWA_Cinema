@@ -1,6 +1,6 @@
 package edu.school21.cinema.servlets;
 
-import edu.school21.cinema.models.SignInRequestEntity;
+import edu.school21.cinema.models.User;
 import edu.school21.cinema.services.UsersService;
 import org.springframework.context.ApplicationContext;
 
@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -27,14 +28,14 @@ public class SignInServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-//        String password = request.getParameter("password");
-        SignInRequestEntity signInRequestEntity = usersService.findByEmail(request.getParameter("e-mail"));
-        if (signInRequestEntity == null) {
+        User user = usersService.findByEmail(request.getParameter("e-mail"), request.getParameter("password"));
+        if (user == null) {
             response.sendRedirect("http://localhost:8080/");
         }
-        PrintWriter printWriter = response.getWriter();
-        printWriter.println(signInRequestEntity);
-
-//        signInRequestEntity.getPassword() == request.getParameter("password");
+        HttpSession session = request.getSession();
+        session.setAttribute("User", user);
+//        PrintWriter pwriter = response.getWriter();
+//        pwriter.println(session.getAttribute(("User")));
+//        pwriter.println(session.isNew());
     }
 }
