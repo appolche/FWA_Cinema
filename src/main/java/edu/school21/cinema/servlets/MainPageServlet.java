@@ -15,11 +15,11 @@ public class MainPageServlet extends HttpServlet {
         resp.setContentType("text/html");
         String path = req.getServletPath();
         if (path.equals("/")) {
-            req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/html/index.html").forward(req, resp);
         } else if (path.equals("/signUp")) {
-            req.getRequestDispatcher("/WEB-INF/jsp/sign_up.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/html/sign_up.html").forward(req, resp);
         } else if (path.equals("/signIn")) {
-            req.getRequestDispatcher("/WEB-INF/jsp/sign_in.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/html/sign_in.html").forward(req, resp);
         }
     }
 }
