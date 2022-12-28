@@ -1,3 +1,11 @@
+FWA-ex00
+
+Веб приложение использующее Java Servlet API стек.
+
+war archive: mvnw package
+deploy:
+application usage:
+
 FWA
 ##Веб приложение использующее Java Servlet API стек.
 Web application prototype using Java Servlet API stack. The application will automate the booking business process of a movie theater later on.
@@ -16,7 +24,9 @@ Servlet container: Apache Tomcat 9.0.63
 Model Builder: Apache Maven
 Данные для конфигурации базы данных храняться в application.properties
 
-Для запуска приложения требуется запустить сначала класс Main. Main создаст схему и две таблицы: fwa.users и fwa.sessions. После этого можно поднимать сервер и все будет работать корректно.
+Для запуска приложения требуется запустить сначала класс Main.
+Main создаст схему и две таблицы: fwa.users и fwa.sessions.
+После этого можно поднимать сервер и все будет работать корректно.
 
 Для тестирования аутентификации можно воспользоваться уже зарегистрированным пользователем со следующими данными:
 Email: z.isupov@gmail.com

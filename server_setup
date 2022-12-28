@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./mvnw clean package && cp -R target/Cinema.war ~/IdeaProjects/apache-tomcat-9.0.69/webapps/ROOT.war && sh ~/IdeaProjects/apache-tomcat-9.0.69/bin/catalina.sh run
