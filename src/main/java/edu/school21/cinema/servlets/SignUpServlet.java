@@ -42,7 +42,6 @@ public class SignUpServlet extends HttpServlet {
         user.setPhoneNumber(request.getParameter("phone_number"));
         String hashedPw = BCrypt.hashpw(request.getParameter("password"), BCrypt.gensalt());
         user.setPassword(hashedPw);
-//check if the income data is correct, what should it do, if it's not?
 
         usersService.save(user);
     }
