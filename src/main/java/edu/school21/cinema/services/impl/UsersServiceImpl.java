@@ -1,6 +1,5 @@
 package edu.school21.cinema.services.impl;
 
-import edu.school21.cinema.models.SignInRequestEntity;
 import edu.school21.cinema.models.User;
 import edu.school21.cinema.repositories.UsersRepositoryJdbcTemplate;
 import edu.school21.cinema.services.UsersService;
@@ -20,6 +19,7 @@ public class UsersServiceImpl implements UsersService {
     public void save(User user) {
         usersRepository.save(user);
     }
+
     @Override
     public User findByEmail(String email, String password) {
         User user = usersRepository.findByEmail(email);
