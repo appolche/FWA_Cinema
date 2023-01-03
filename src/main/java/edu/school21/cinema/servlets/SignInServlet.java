@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(value = "/signIn", name = "SignInServlet")
 public class SignInServlet extends HttpServlet {
@@ -40,5 +41,7 @@ public class SignInServlet extends HttpServlet {
         }
         HttpSession session = request.getSession();
         session.setAttribute("User", user);
+        PrintWriter printWriter = response.getWriter();
+        printWriter.println(session.getAttribute(("User")));
     }
 }
