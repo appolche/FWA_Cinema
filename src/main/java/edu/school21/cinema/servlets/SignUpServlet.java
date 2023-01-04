@@ -18,6 +18,7 @@ import java.io.IOException;
 public class SignUpServlet extends HttpServlet {
 
     private UsersService usersService;
+    private static final String SIGN_UP_HTML = "/WEB-INF/html/sign_up.html";
 
     @Override
     public void init(ServletConfig config) {
@@ -28,7 +29,7 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/html/sign_up.html").forward(req, resp);
+        req.getRequestDispatcher(SIGN_UP_HTML).forward(req, resp);
     }
 
     @Override

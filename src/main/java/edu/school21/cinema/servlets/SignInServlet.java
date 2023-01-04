@@ -18,6 +18,8 @@ import java.io.PrintWriter;
 @WebServlet(value = "/signIn", name = "SignInServlet")
 public class SignInServlet extends HttpServlet {
     private UsersService usersService;
+    private static final String URL_ROOT = "/";
+    private static final String SIGN_IN_HTML = "/WEB-INF/html/sign_in.html";
 
     @Override
     public void init(ServletConfig config) {
@@ -28,7 +30,7 @@ public class SignInServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/html/sign_in.html").forward(req, resp);
+        req.getRequestDispatcher(SIGN_IN_HTML).forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -36,7 +38,7 @@ public class SignInServlet extends HttpServlet {
 
         User user = usersService.findByEmail(request.getParameter("e-mail"), request.getParameter("password"));
         if (user == null) {
-            response.sendRedirect("http://localhost:8080/");
+            response.sendRedirect(URL_ROOT);
             return;
         }
         HttpSession session = request.getSession();
