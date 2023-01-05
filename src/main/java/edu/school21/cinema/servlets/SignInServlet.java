@@ -43,7 +43,5 @@ public class SignInServlet extends HttpServlet {
         }
         HttpSession session = request.getSession();
         session.setAttribute("User", user);
-        PrintWriter printWriter = response.getWriter();
-        printWriter.println(session.getAttribute(("User")));
     }
 }
