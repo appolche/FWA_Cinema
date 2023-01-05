@@ -33,6 +33,7 @@ public class SignInServlet extends HttpServlet {
         req.getRequestDispatcher(SIGN_IN_HTML).forward(req, resp);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
