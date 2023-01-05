@@ -19,10 +19,10 @@ public class MainFilter implements Filter {
 
         if ("/profile".equals(currentUrl) && !isUserAuth) {
             resp.sendError(403);
-        }
-        if (isUserAuth && ("/signIn".equals(currentUrl) || "/signUp".equals(currentUrl))) {
+        } else if (isUserAuth && ("/signIn".equals(currentUrl) || "/signUp".equals(currentUrl))) {
             resp.sendRedirect(PROFILE_CONTEXT);
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
         }
-        filterChain.doFilter(servletRequest, servletResponse);
     }
 }
