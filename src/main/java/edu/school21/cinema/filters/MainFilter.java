@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/*"})
+@WebFilter(urlPatterns = {"/signUp", "/signIn", "/profile"})
 public class MainFilter implements Filter {
     private static final String PROFILE_CONTEXT = "/profile";
 
@@ -18,7 +18,7 @@ public class MainFilter implements Filter {
         boolean isUserAuth = req.getSession().getAttribute("User") != null;
 
         if ("/profile".equals(currentUrl) && !isUserAuth) {
-            resp.sendError(403);
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
         } else if (isUserAuth && ("/signIn".equals(currentUrl) || "/signUp".equals(currentUrl))) {
             resp.sendRedirect(PROFILE_CONTEXT);
         } else {
