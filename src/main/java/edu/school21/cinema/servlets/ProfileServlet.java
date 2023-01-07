@@ -9,7 +9,7 @@ import java.io.IOException;
 
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
-    private static final String PROFILE_HTML = "/WEB-INF/html/profile.html";
+    private static final String PROFILE_HTML = "/WEB-INF/jsp/profile.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
