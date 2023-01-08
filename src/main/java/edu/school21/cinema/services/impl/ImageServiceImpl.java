@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -30,12 +31,21 @@ public class ImageServiceImpl implements ImageService {
             ServletFileUpload uploader = new ServletFileUpload(fileFactory);
             List<FileItem> fileItemsList = uploader.parseRequest(request);
             for (FileItem fileItem : fileItemsList) {
-                File file = new File(storagePath + "/" + userId + "/" + fileItem.getName());
+                File file = createFile(storagePath + "/" + userId + "/" + fileItem.getName(), 1);
                 fileItem.write(file);
             }
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    private File createFile(String fullFileName, int num) throws IOException {
+        File file = new File(fullFileName + ((num == 1) ? "" : "_" + num));
+        if (!file.createNewFile()) {
+            return createFile(fullFileName, num + 1);
+        } else {
+            return file;
         }
     }
 }

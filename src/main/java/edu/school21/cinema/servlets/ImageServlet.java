@@ -17,7 +17,6 @@ import java.io.IOException;
 @WebServlet("/fwa/images")
 public class ImageServlet extends HttpServlet {
     private ImageService imageService;
-    private ServletFileUpload uploader = null;
 
     @Override
     public void init(ServletConfig config) {
