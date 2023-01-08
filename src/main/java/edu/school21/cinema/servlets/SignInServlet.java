@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(value = "/signIn", name = "SignInServlet")
 public class SignInServlet extends HttpServlet {
     private UsersService usersService;
     private static final String URL_ROOT = "/";
+    private static final String URL_PROFILE = "/profile";
     private static final String SIGN_IN_HTML = "/WEB-INF/html/sign_in.html";
 
     @Override
@@ -44,5 +44,6 @@ public class SignInServlet extends HttpServlet {
         }
         HttpSession session = request.getSession();
         session.setAttribute("User", user);
+        response.sendRedirect(URL_PROFILE);
     }
 }
