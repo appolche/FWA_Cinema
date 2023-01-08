@@ -3,7 +3,9 @@ package edu.school21.cinema.config;
 import com.zaxxer.hikari.HikariDataSource;
 import edu.school21.cinema.repositories.UsersRepositoryJdbcTemplate;
 import edu.school21.cinema.repositories.UsersRepositoryJdbcTemplateImpl;
+import edu.school21.cinema.services.ImageService;
 import edu.school21.cinema.services.UsersService;
+import edu.school21.cinema.services.impl.ImageServiceImpl;
 import edu.school21.cinema.services.impl.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,9 +26,11 @@ public class DataSourceConfig {
     private String driver;
     @Value("${db.password}")
     private String password;
+    @Value("${storage.path}")
+    private String storagePath;
 
     @Bean
-    DataSource dataSourceBean() {
+    public DataSource dataSourceBean() {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -40,17 +44,22 @@ public class DataSourceConfig {
     }
 
     @Bean
-    JdbcTemplate jdbcTemplateBean() {
+    public JdbcTemplate jdbcTemplateBean() {
         return new JdbcTemplate((dataSourceBean()));
     }
 
     @Bean
-    UsersRepositoryJdbcTemplate usersRepositoryJdbcTemplateBean() {
+    public UsersRepositoryJdbcTemplate usersRepositoryJdbcTemplateBean() {
         return new UsersRepositoryJdbcTemplateImpl(jdbcTemplateBean());
     }
 
     @Bean
     public UsersService usersServiceBean() {
         return new UsersServiceImpl(usersRepositoryJdbcTemplateBean());
+    }
+
+    @Bean
+    public ImageService imageServiceBean() {
+        return new ImageServiceImpl(System.getProperty("catalina.home") + this.storagePath);
     }
 }
