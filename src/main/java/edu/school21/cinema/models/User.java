@@ -10,4 +10,5 @@ public class User {
     String lastName;
     String phoneNumber;
     String password;
+    Image avatar;
 }

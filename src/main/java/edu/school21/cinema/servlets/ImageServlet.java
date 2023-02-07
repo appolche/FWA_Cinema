@@ -27,9 +27,9 @@ public class ImageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        for (String imagePath : imageService.getImages()) {
-            req.getSession().setAttribute(imagePath, new Object());
-        }
+//        for (String imagePath : imageService.getImages()) {
+//            req.getSession().setAttribute(imagePath, new Object());
+//        }
     }
 
     @Override
@@ -39,6 +39,6 @@ public class ImageServlet extends HttpServlet {
         }
         User currentUser = (User) req.getSession().getAttribute("User");
 
-        resp.getWriter().println(imageService.uploadImage(req.getInputStream(), currentUser.getId(), req) + System.getProperty("catalina.home"));
+        resp.getWriter().println(imageService.uploadImage(req, currentUser.getId()) + System.getProperty("catalina.home"));
     }
 }

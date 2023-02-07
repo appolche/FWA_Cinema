@@ -126,32 +126,32 @@
             </table>
         </td>
     </tr>
-<%--    <tr>--%>
-<%--        <td valign="bottom">--%>
-<%--            <table width="500"  align="left" border="1px solid black" text-align="center">--%>
-<%--                <tr>--%>
-<%--                    <th>File name</th>--%>
-<%--                    <th>Size</th>--%>
-<%--                    <th>MIME</th>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>December 10, 2020</td>--%>
-<%--                    <td>05:00</td>--%>
-<%--                    <td>127.0.0.1</td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>December 09, 2020</td>--%>
-<%--                    <td>04:00</td>--%>
-<%--                    <td>127.0.0.1</td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>December 08, 2020</td>--%>
-<%--                    <td>03:00</td>--%>
-<%--                    <td>127.0.0.1</td>--%>
-<%--                </tr>--%>
-<%--            </table>--%>
-<%--        </td>--%>
-<%--    </tr>--%>
+    <tr>
+        <td valign="bottom">
+            <table width="500"  align="left" border="1px solid black" text-align="center">
+                <tr>
+                    <th>File name</th>
+                    <th>Size</th>
+                    <th>MIME</th>
+                </tr>
+                <tr>
+                    <td>December 10, 2020</td>
+                    <td>05:00</td>
+                    <td>127.0.0.1</td>
+                </tr>
+                <tr>
+                    <td>December 09, 2020</td>
+                    <td>04:00</td>
+                    <td>127.0.0.1</td>
+                </tr>
+                <tr>
+                    <td>December 08, 2020</td>
+                    <td>03:00</td>
+                    <td>127.0.0.1</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
 
 </body>
