@@ -1,10 +1,10 @@
 package edu.school21.cinema.services;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface ImageService {
-    List<String> getImages();
-    boolean uploadImage(InputStream reqInputStream, long userId, HttpServletRequest request);
+    List<String> getImages(long userId, HttpServletResponse response);
+    boolean uploadImage(HttpServletRequest request, long userId);
 }

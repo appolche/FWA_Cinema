@@ -4,32 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
-<%--    <style>--%>
-<%--        table, th, td {--%>
-<%--            border: 1px solid black;--%>
-<%--            text-align: center;--%>
-<%--        }--%>
-<%--    </style>--%>
+    <%--    <style>--%>
+    <%--        table, th, td {--%>
+    <%--            border: 1px solid black;--%>
+    <%--            text-align: center;--%>
+    <%--        }--%>
+    <%--    </style>--%>
 </head>
 <body>
 
 <table width="500" align="center">
     <tr>
-        <td rowspan="2" >
+        <td rowspan="2">
+            <img src="" alt="<%=session.getAttribute("avatar")%>"/>
             <main>
-                <input type="file" name="image" id="image" accept="image/*" />
-                <div id="preview">
-                    <div id="avatar"></div>
-                    <button
-                            id="upload-button"
-                            aria-labelledby="image"
-                            aria-describedby="image"
-                    >
-                        Upload
-                    </button>
-                </div>
+                <form action="images" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file"/>
+                    <input type="submit"/>
+                </form>
             </main>
 
+            <a href="images">Chien
+            </a>
             <style>
                 body {
                     display: flex;
@@ -50,9 +46,9 @@
                     position: relative;
                 }
 
-                input[type="file"] {
-                    display: none;
-                }
+                /*input[type="file"] {*/
+                /*    display: none;*/
+                /*}*/
 
                 button {
                     padding: 18px;
@@ -71,38 +67,38 @@
             </style>
 
             <script>
-                const UPLOAD_BUTTON = document.getElementById("upload-button");
-                const FILE_INPUT = document.querySelector("input[type=file]");
-                const AVATAR = document.getElementById("avatar");
+                <%--const UPLOAD_BUTTON = document.getElementById("upload-button");--%>
+                <%--const FILE_INPUT = document.querySelector("input[type=file]");--%>
+                <%--const AVATAR = document.getElementById("avatar");--%>
 
-                UPLOAD_BUTTON.addEventListener("click", () => FILE_INPUT.click());
+                <%--UPLOAD_BUTTON.addEventListener("click", () => FILE_INPUT.click());--%>
 
-                FILE_INPUT.addEventListener("change", event => {
-                    const file = event.target.files[0];
+                <%--FILE_INPUT.addEventListener("change", event => {--%>
+                <%--    const file = event.target.files[0];--%>
 
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file);
+                <%--    const reader = new FileReader();--%>
+                <%--    reader.readAsDataURL(file);--%>
 
-                    reader.onloadend = () => {
-                        AVATAR.setAttribute("aria-label", file.name);
-                        AVATAR.style.background = `url(${reader.result}) center center/cover`;
-                    };
-                });
+                <%--    reader.onloadend = () => {--%>
+                <%--        AVATAR.setAttribute("aria-label", file.name);--%>
+                <%--        AVATAR.style.background = `url(${reader.result}) center center/cover`;--%>
+                <%--    };--%>
+                <%--});--%>
             </script>
         </td>
         <td valign="top">
             <p align="left"><strong>
-                <%=((User)session.getAttribute("User")).getFirstName()%>
-                <%=((User)session.getAttribute("User")).getLastName()%>
+                <%=((User) session.getAttribute("User")).getFirstName()%>
+                <%=((User) session.getAttribute("User")).getLastName()%>
             </strong></p>
             <p align="left"><strong>
-                <%=((User)session.getAttribute("User")).getEmail()%>
+                <%=((User) session.getAttribute("User")).getEmail()%>
             </strong></p>
         </td>
     </tr>
     <tr>
         <td valign="bottom">
-            <table width="500"  align="center" border="1px solid black" text-align="center">
+            <table width="500" align="center" border="1px solid black" text-align="center">
                 <tr>
                     <th>Date</th>
                     <th>Time</th>
@@ -126,32 +122,32 @@
             </table>
         </td>
     </tr>
-<%--    <tr>--%>
-<%--        <td valign="bottom">--%>
-<%--            <table width="500"  align="left" border="1px solid black" text-align="center">--%>
-<%--                <tr>--%>
-<%--                    <th>File name</th>--%>
-<%--                    <th>Size</th>--%>
-<%--                    <th>MIME</th>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>December 10, 2020</td>--%>
-<%--                    <td>05:00</td>--%>
-<%--                    <td>127.0.0.1</td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>December 09, 2020</td>--%>
-<%--                    <td>04:00</td>--%>
-<%--                    <td>127.0.0.1</td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td>December 08, 2020</td>--%>
-<%--                    <td>03:00</td>--%>
-<%--                    <td>127.0.0.1</td>--%>
-<%--                </tr>--%>
-<%--            </table>--%>
-<%--        </td>--%>
-<%--    </tr>--%>
+    <%--    <tr>--%>
+    <%--        <td valign="bottom">--%>
+    <%--            <table width="500"  align="left" border="1px solid black" text-align="center">--%>
+    <%--                <tr>--%>
+    <%--                    <th>File name</th>--%>
+    <%--                    <th>Size</th>--%>
+    <%--                    <th>MIME</th>--%>
+    <%--                </tr>--%>
+    <%--                <tr>--%>
+    <%--                    <td>December 10, 2020</td>--%>
+    <%--                    <td>05:00</td>--%>
+    <%--                    <td>127.0.0.1</td>--%>
+    <%--                </tr>--%>
+    <%--                <tr>--%>
+    <%--                    <td>December 09, 2020</td>--%>
+    <%--                    <td>04:00</td>--%>
+    <%--                    <td>127.0.0.1</td>--%>
+    <%--                </tr>--%>
+    <%--                <tr>--%>
+    <%--                    <td>December 08, 2020</td>--%>
+    <%--                    <td>03:00</td>--%>
+    <%--                    <td>127.0.0.1</td>--%>
+    <%--                </tr>--%>
+    <%--            </table>--%>
+    <%--        </td>--%>
+    <%--    </tr>--%>
 </table>
 
 </body>
