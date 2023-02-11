@@ -1,66 +1,36 @@
 package edu.school21.cinema.services.impl;
 
+import edu.school21.cinema.models.Image;
+import edu.school21.cinema.repositories.ImageRepositoryJdbcTemplate;
 import edu.school21.cinema.services.ImageService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URI;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStream;
 import java.nio.file.Paths;
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@MultipartConfig
 public class ImageServiceImpl implements ImageService {
     private final String storagePath;
+    private final ImageRepositoryJdbcTemplate imageRepository;
 
     @Override
-    public List<String> getImages(long userId, HttpServletResponse response) {
-        try (Stream<Path> paths = Files.walk(Paths.get(storagePath + "/" + userId));
-             OutputStream outputStream = response.getOutputStream()) {
-            URL imagesUrl = paths.findFirst().map(Path::toUri).get();
-            BufferedImage bufferedImage = ImageIO.read(imagesUrl);
-            ImageIO.setUseCache(false);
-            ImageIO.write(bufferedImage, "png", outputStream);
-//            return paths
-//                    .filter(Files::isRegularFile)
-//                    .map(Object::toString)
-//                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-        return null;
+    public List<Image> getImages(Long userId) {
+        return imageRepository.findByUserId(userId);
     }
-
-//    public static void main(String[] args) {
-//        try (Stream<Path> paths = Files.walk(Paths.get("/Users/e.goryaev/IdeaProjects/apache-tomcat-9.0.69/FWA/images/4/Screenshot 2022-07-26 at 17.57.20.png"));
-//             ) {
-//            URI imagesUrl = paths.findFirst().map(Path::toUri).get();
-//            System.out.println(imagesUrl);
-//            System.out.println(imagesUrl.toURL());
-////            BufferedImage bufferedImage = ImageIO.read(imagesUrl);
-////            ImageIO.setUseCache(false);
-////            return paths
-////                    .filter(Files::isRegularFile)
-////                    .map(Object::toString)
-////                    .collect(Collectors.toList());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     @Override
     public boolean uploadImage(HttpServletRequest request, long userId) {
@@ -70,35 +40,32 @@ public class ImageServiceImpl implements ImageService {
             createDir.mkdirs();
         }
         try {
-            Part filePart = request.getPart("file");
+            Part filePart = request.getPart("fileToUpload");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            UUID uniqueName = UUID.randomUUID();
 
-            String pathToFile = uploadPath + "/" + createFileName(fileName, uploadPath, 1);
+            String pathToFile = uploadPath + "/" + uniqueName;
             filePart.write(pathToFile);
 
-            request.getSession().setAttribute("avatar", pathToFile);
+            Image uploadedImage = createEntity(fileName, uniqueName, userId, filePart.getSize(), filePart.getContentType(), LocalDateTime.now());
+
+            imageRepository.save(uploadedImage);
+
+            request.getSession().setAttribute("avatar", pathToFile); //???
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    private String createFileName(String fullFileName, String uploadPath, int num) {
-        String fileName = num == 1 ? fullFileName : appendNumToFileName(fullFileName, num);
-        File file = new File(uploadPath + File.pathSeparator + fileName);
-        if (file.exists()) {
-            return createFileName(fullFileName, uploadPath, num + 1);
-        }
-        return fileName;
-    }
-
-    private String appendNumToFileName(String fileName, int num) {
-        StringBuilder res = new StringBuilder();
-        int dotIdx = fileName.lastIndexOf(".");
-        res
-                .append(fileName, 0, dotIdx)
-                .append("_").append(num)
-                .append(fileName, dotIdx, fileName.length());
-        return res.toString();
+    private Image createEntity(String fileName, UUID uniqueName, Long userId, long size, String mime, LocalDateTime date) {
+        Image uploadedImage = new Image();
+        uploadedImage.setOriginal_name(fileName);
+        uploadedImage.setUuid(uniqueName);
+        uploadedImage.setUserId(userId);
+        uploadedImage.setSize(size);
+        uploadedImage.setMime(mime);
+        uploadedImage.setDate(date);
+        return uploadedImage;
     }
 }

@@ -14,8 +14,9 @@ public class MainFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-        String currentUrl = req.getRequestURI();
+
         boolean isUserAuth = req.getSession().getAttribute("User") != null;
+        String currentUrl = req.getRequestURI();
 
         if ("/profile".equals(currentUrl) && !isUserAuth) {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN);

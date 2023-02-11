@@ -1,6 +1,8 @@
 package edu.school21.cinema.config;
 
 import com.zaxxer.hikari.HikariDataSource;
+import edu.school21.cinema.repositories.ImageRepositoryJdbcTemplate;
+import edu.school21.cinema.repositories.ImageRepositoryJdbcTemplateImpl;
 import edu.school21.cinema.repositories.UsersRepositoryJdbcTemplate;
 import edu.school21.cinema.repositories.UsersRepositoryJdbcTemplateImpl;
 import edu.school21.cinema.services.ImageService;
@@ -59,7 +61,11 @@ public class DataSourceConfig {
     }
 
     @Bean
+    public ImageRepositoryJdbcTemplate imageRepositoryJdbcTemplateBean() {
+        return new ImageRepositoryJdbcTemplateImpl(jdbcTemplateBean());
+    }
+    @Bean
     public ImageService imageServiceBean() {
-        return new ImageServiceImpl(System.getProperty("catalina.home") + this.storagePath);
+        return new ImageServiceImpl(System.getProperty("catalina.home") + this.storagePath, imageRepositoryJdbcTemplateBean());
     }
 }

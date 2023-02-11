@@ -1,16 +1,14 @@
 package edu.school21.cinema.repositories;
 
 import edu.school21.cinema.models.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class UsersRepositoryJdbcTemplateImpl implements UsersRepositoryJdbcTemplate {
     private final JdbcTemplate jdbcTemplate;
-
-    public UsersRepositoryJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public void save(User user) {

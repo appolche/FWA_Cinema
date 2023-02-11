@@ -8,15 +8,13 @@ import org.springframework.context.ApplicationContext;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/images")
-@MultipartConfig
+@WebServlet("/fwa/images")
 public class ImageServlet extends HttpServlet {
     private ImageService imageService;
 
@@ -29,27 +27,9 @@ public class ImageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("User");
-//        PrintWriter printWriter = resp.getWriter();
-//        for (String str : ) {
-//            printWriter.println(str);
+//        for (String imagePath : imageService.getImages()) {
+//            req.getSession().setAttribute(imagePath, new Object());
 //        }
-
-        imageService.getImages(user.getId(), resp);
-//        ServletOutputStream sos = resp.getOutputStream();
-//        BufferedOutputStream bos = new BufferedOutputStream(sos);
-//
-//        FileInputStream fis = new FileInputStream("path");
-//        BufferedInputStream bis = new BufferedInputStream(fis);
-//
-//        int ch;
-//        while ((ch = bis.read()) != -1) {
-//            bos.write(ch);
-//        }
-//        bis.close();
-//        fis.close();
-//        bos.close();
-//        sos.close();
     }
 
     @Override
@@ -58,7 +38,7 @@ public class ImageServlet extends HttpServlet {
             throw new ServletException("not multipart content");
         }
         User currentUser = (User) req.getSession().getAttribute("User");
-        imageService.uploadImage(req, currentUser.getId());
-        resp.sendRedirect("/profile");
+
+        resp.getWriter().println(imageService.uploadImage(req, currentUser.getId()) + System.getProperty("catalina.home"));
     }
 }
