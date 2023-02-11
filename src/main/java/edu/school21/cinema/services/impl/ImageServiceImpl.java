@@ -9,6 +9,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.File;
@@ -21,6 +22,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@MultipartConfig
 public class ImageServiceImpl implements ImageService {
     private final String storagePath;
     private final ImageRepositoryJdbcTemplate imageRepository;
@@ -38,7 +40,7 @@ public class ImageServiceImpl implements ImageService {
             createDir.mkdirs();
         }
         try {
-            Part filePart = request.getPart("file");
+            Part filePart = request.getPart("fileToUpload");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             UUID uniqueName = UUID.randomUUID();
 
@@ -66,5 +68,4 @@ public class ImageServiceImpl implements ImageService {
         uploadedImage.setDate(date);
         return uploadedImage;
     }
-
 }

@@ -3,9 +3,14 @@ package edu.school21.cinema.servlets;
 import edu.school21.cinema.models.User;
 import edu.school21.cinema.models.Image;
 import edu.school21.cinema.services.ImageService;
+import edu.school21.cinema.services.UsersService;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.context.ApplicationContext;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +20,17 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/profile")
+@MultipartConfig
 public class ProfileServlet extends HttpServlet {
     private ImageService imageService;
     private static final String PROFILE_HTML = "/WEB-INF/jsp/profile.jsp";
+
+    @Override
+    public void init(ServletConfig config) {
+        ServletContext context = config.getServletContext();
+        ApplicationContext springContext = (ApplicationContext) context.getAttribute("springContext");
+        this.imageService = springContext.getBean(ImageService.class);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,9 +54,10 @@ public class ProfileServlet extends HttpServlet {
         }
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("User");
 
-        response.getWriter().println(imageService.uploadImage(request, user.getId()) + System.getProperty("catalina.home"));
+        response.getWriter().println(imageService
+                .uploadImage(request, user.getId()) + System.getProperty("catalina.home"));
     }
 
 }
