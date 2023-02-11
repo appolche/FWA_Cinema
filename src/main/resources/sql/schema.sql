@@ -1,4 +1,4 @@
-drop table if exists users cascade;
+drop table if exists users, images cascade;
 
 create table if not exists users (
     id             serial primary key,
@@ -9,10 +9,8 @@ create table if not exists users (
     password       varchar(70) not null
     );
 
-select * from users;
-
 create table if not exists images (
-     id             serial primary key,
+     id             serial,
      uuid           uuid not null unique,
      original_name  varchar(255) not null,
      size           bigint not null,

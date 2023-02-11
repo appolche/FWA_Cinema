@@ -44,8 +44,6 @@ public class ProfileServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         response.getWriter().println(imageService.uploadImage(request, user.getId()) + System.getProperty("catalina.home"));
-
-
     }
 
 }
