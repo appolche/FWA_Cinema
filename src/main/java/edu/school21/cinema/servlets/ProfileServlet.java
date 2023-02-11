@@ -1,9 +1,7 @@
 package edu.school21.cinema.servlets;
 
 import edu.school21.cinema.models.User;
-import edu.school21.cinema.models.Image;
 import edu.school21.cinema.services.ImageService;
-import edu.school21.cinema.services.UsersService;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.context.ApplicationContext;
 
@@ -17,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/profile")
 @MultipartConfig

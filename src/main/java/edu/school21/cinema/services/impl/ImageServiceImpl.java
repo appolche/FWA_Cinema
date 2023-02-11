@@ -4,17 +4,12 @@ import edu.school21.cinema.models.Image;
 import edu.school21.cinema.repositories.ImageRepositoryJdbcTemplate;
 import edu.school21.cinema.services.ImageService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;

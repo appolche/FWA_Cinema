@@ -64,6 +64,7 @@ public class DataSourceConfig {
     public ImageRepositoryJdbcTemplate imageRepositoryJdbcTemplateBean() {
         return new ImageRepositoryJdbcTemplateImpl(jdbcTemplateBean());
     }
+
     @Bean
     public ImageService imageServiceBean() {
         return new ImageServiceImpl(System.getProperty("catalina.home") + this.storagePath, imageRepositoryJdbcTemplateBean());
