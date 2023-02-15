@@ -1,4 +1,9 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="edu.school21.cinema.models.User" %>
+<%@ page import="edu.school21.cinema.models.Image" %>
+<%@ page import="java.util.List" %>
+
+<% List<Image> imageFiles = (List<Image>) session.getAttribute("images"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +11,10 @@
     function triggerInput() {
         document.getElementById('inputFile').click();
     }
+
     function inputImage(event) {
         if (event.target.files[0]) {
-            document.getElementById('image').src=URL.createObjectURL(event.target.files[0]);
+            document.getElementById('image').src = URL.createObjectURL(event.target.files[0]);
             document.getElementById("add-icon").style.display = "none";
             document.getElementById("uploadbtn").disabled = false;
         }
@@ -18,18 +24,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
-<%--    <style>--%>
-<%--        table, th, td {--%>
-<%--            border: 1px solid black;--%>
-<%--            text-align: center;--%>
-<%--        }--%>
-<%--    </style>--%>
+    <%--    <style>--%>
+    <%--        table, th, td {--%>
+    <%--            border: 1px solid black;--%>
+    <%--            text-align: center;--%>
+    <%--        }--%>
+    <%--    </style>--%>
 </head>
 <style>
     body {
         height: 100vh;
         font-family: Verdana, sans-serif;
     }
+
     .container {
         padding: 15px;
         width: 700px;
@@ -38,15 +45,18 @@
         flex-direction: column;
         margin: auto auto 50px;
     }
+
     .avatar-user-info {
         width: 100%;
         display: flex;
         justify-content: left;
     }
+
     .avatar-info {
         display: flex;
         flex-direction: column;
     }
+
     .user-info {
         font-size: 13pt;
         margin-top: 50px;
@@ -56,9 +66,11 @@
         overflow-x: auto;
         scrollbar-width: thin;
     }
+
     .upload-form {
         width: 198px;
     }
+
     .uploadbtn {
         background-color: #5237d5;
         color: white;
@@ -70,12 +82,14 @@
         width: 200px;
         opacity: 0.9;
     }
+
     .uploadbtn:hover {
-        opacity:1;
+        opacity: 1;
         cursor: pointer;
     }
+
     .image-preview {
-        height:175px;
+        height: 175px;
         width: 194px;
         cursor: pointer;
         display: flex;
@@ -84,50 +98,61 @@
         border: 2px dashed #5237d5;
         border-radius: 10px;
     }
+
     .image {
         max-width: 194px;
         max-height: 175px;
         border-radius: inherit;
     }
+
     .add-icon {
         font-size: 40pt;
         color: #5237d5;
     }
+
     .add-icon:hover {
         font-size: 60pt;
     }
+
     .info-key {
         margin-right: 10px;
         min-width: 100px;
     }
+
     .label {
         color: #a4a4a4;
         margin: 2px;
         font-size: 13pt;
     }
+
     .table-label {
         color: #5237d5;
         margin: 2px;
         font-size: 13pt;
         text-align: left;
     }
+
     .value {
         margin: 2px;
     }
+
     .sessions-list {
         margin-top: 40px;
         display: flex;
         flex-direction: column;
     }
+
     .images-list {
         margin-top: 30px;
         display: flex;
         flex-direction: column;
     }
+
     table {
         font-size: 10pt;
         border-collapse: collapse;
     }
+
     hr {
         height: 2px;
         background-color: #5237d5;
@@ -136,20 +161,36 @@
         padding: 0;
         margin: 0 0 15px;
     }
+
     td, th {
         border: 1px solid #dddddd;
         text-align: center;
         padding: 4px;
     }
+
     th {
         background-color: #dddddd;
     }
 </style>
 <body>
-
+<table>
+    <tr>
+        <th>File name</th>
+        <th>Size</th>
+        <th>MIME</th>
+    </tr>
+    <c:set var="list" value="<%= imageFiles %>"
+    <c:forEach var="f" items="${list}">
+        <tr>
+            <td><c:out value="${f.original_name}" /></td>
+            <td>${f.size}</td>
+            <td>${f.mime}</td>
+        </tr>
+    </c:forEach>
+</table>
 <table width="500" align="center">
     <tr>
-        <td rowspan="2" >
+        <td rowspan="2">
 
             <div class="container">
                 <div class="avatar-user-info">
@@ -159,7 +200,8 @@
                             <img id="image" class="image" alt="" src="">
                         </div>
                         <form class="upload-form" action="/profile" method="POST" enctype="multipart/form-data">
-                            <input id="inputFile" style="display: none" type="file" name="fileToUpload" onchange="inputImage(event)" accept="image/*">
+                            <input id="inputFile" style="display: none" type="file" name="fileToUpload"
+                                   onchange="inputImage(event)" accept="image/*">
                             <input id="uploadbtn" type="submit" class="uploadbtn" value="Upload" disabled>
                         </form>
                     </div>
@@ -168,17 +210,17 @@
         </td>
         <td valign="top">
             <p align="left"><strong>
-                <%=((User)session.getAttribute("User")).getFirstName()%>
-                <%=((User)session.getAttribute("User")).getLastName()%>
+                <%=((User) session.getAttribute("User")).getFirstName()%>
+                <%=((User) session.getAttribute("User")).getLastName()%>
             </strong></p>
             <p align="left"><strong>
-                <%=((User)session.getAttribute("User")).getEmail()%>
+                <%=((User) session.getAttribute("User")).getEmail()%>
             </strong></p>
         </td>
     </tr>
     <tr>
         <td valign="bottom">
-            <table width="500"  align="center" border="1px solid black" text-align="center">
+            <table width="500" align="center" border="1px solid black" text-align="center">
                 <tr>
                     <th>Date</th>
                     <th>Time</th>
@@ -204,7 +246,7 @@
     </tr>
     <tr>
         <td valign="bottom">
-            <table width="500"  align="left" border="1px solid black" text-align="center">
+            <table width="500" align="left" border="1px solid black" text-align="center">
                 <tr>
                     <th>File name</th>
                     <th>Size</th>

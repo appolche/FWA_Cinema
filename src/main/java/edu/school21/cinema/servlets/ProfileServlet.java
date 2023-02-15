@@ -1,5 +1,6 @@
 package edu.school21.cinema.servlets;
 
+import edu.school21.cinema.models.Image;
 import edu.school21.cinema.models.User;
 import edu.school21.cinema.services.ImageService;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/profile")
 @MultipartConfig
@@ -32,11 +34,11 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("User");
 
 
-//        List<Image> userImages = imageService.getImages(user.getId());
-//        session.setAttribute("files", userImages);
+        List<Image> userImages = imageService.getImages(user.getId());
+        session.setAttribute("images", userImages);
 //
 //        List<SessionService.SessionDto> sessions = sessionService.getSessions(user);
 //        session.setAttribute("sessions", sessions);
